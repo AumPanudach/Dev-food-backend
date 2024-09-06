@@ -64,6 +64,7 @@ const registerUser = async (req,res) => {
             // create token 
             const token = generateToken(user._id);
             res.json({success:true,token})
+            console.log(user);
 
         }catch(error){
             console.log(error)
