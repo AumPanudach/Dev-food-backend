@@ -71,6 +71,40 @@ const verifyOrder = async (req,res) =>{
     }
 }
 
+// user 's order for frontend
+const userOrders = async (req, res) =>{
+    try{
+        const orders = await orderModel.find({userId:req.body.userId});
+        res.json({success:true, data:orders})
+    }catch(err){
+        console.log(err);
+        res.json({success:false, message:"Error getting orders"})
+    }
+}
+
+// Listing order for admin page
+
+const listOrder = async (req, res) =>{
+    try{
+        const orders = await orderModel.find({});
+        res.json({success:true, data:orders})
+    }catch(err){
+        console.log(err);
+        res.json({success:false, message:"Error getting orders"})
+    }
+}
+
+
+// api for update order status
+const updateStatus = async (req, res) =>{
+    try{
+        await orderModel.findByIdAndUpdate(req.body.orderId, {status:req.body.status});
+        res.json({success:true, message:"Order status updated"})
+    }catch(err){
+        console.log(err);
+        res.json({success:false, message:"Error updating order status"})
+    }
+}
 export {
-    placeOrder,verifyOrder
+    placeOrder,verifyOrder,userOrders,listOrder,updateStatus
 }
